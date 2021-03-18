@@ -17,7 +17,7 @@ class MainActivity : MvpAppCompatActivity(), MainView, LoadNewCharacters,
     StartCharacterDescriptionActivity {
 
     @InjectPresenter
-    private lateinit var mainPresenter: MainPresenter
+    lateinit var mainPresenter: MainPresenter
 
     private lateinit var recyclerAdapter: CharactersRecyclerViewAdapter
 
