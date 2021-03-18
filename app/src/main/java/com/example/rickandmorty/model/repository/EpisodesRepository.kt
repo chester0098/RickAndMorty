@@ -12,6 +12,8 @@ class EpisodesRepository {
             .flatMap { i -> RetrofitClient.rickAndMortyAPI.getEpisode(episodeUrlList[i]) }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { response -> episodesResponse.addEpisodeToRecycler(response) }
+            .subscribe(
+                { response -> episodesResponse.addEpisodeToRecycler(response) },
+                { episodesResponse.onError() })
     }
 }

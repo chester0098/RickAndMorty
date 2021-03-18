@@ -20,7 +20,7 @@ class MainPresenter : MvpPresenter<MainView>(), CharacterResponse {
     }
 
     override fun onError() {
-        viewState.showToast()
+        viewState.showErrorToast()
     }
 
 

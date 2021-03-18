@@ -19,6 +19,6 @@ class CharacterDescriptionPresenter : MvpPresenter<CharacterDescriptionView>(), 
     }
 
     override fun onError() {
-        TODO("Not yet implemented")
+        viewState.showErrorToast()
     }
 }

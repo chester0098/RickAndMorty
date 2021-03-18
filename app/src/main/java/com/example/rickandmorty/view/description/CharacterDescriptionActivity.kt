@@ -1,6 +1,7 @@
 package com.example.rickandmorty.view.description
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.rickandmorty.R
@@ -9,6 +10,7 @@ import com.example.rickandmorty.model.entities.episode.Episode
 import com.example.rickandmorty.model.utils.DateTimeFormatUtils
 import com.example.rickandmorty.presenter.CharacterDescriptionPresenter
 import com.example.rickandmorty.view.adapter.EpisodesRecyclerAdapter
+import com.example.rickandmorty.view.main.MainActivity
 import kotlinx.android.synthetic.main.activity_character_description.*
 import moxy.MvpAppCompatActivity
 import moxy.presenter.InjectPresenter
@@ -22,15 +24,15 @@ class CharacterDescriptionActivity : MvpAppCompatActivity(), CharacterDescriptio
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_character_description)
-        val result: Result = intent.getSerializableExtra("Character") as Result
+        val result: Result = intent.getSerializableExtra(MainActivity.CHARACTER_TAG) as Result
 
         Glide.with(this).load(result.image).into(characterImageView)
-        nameTextView.text = result.name
-        genderTextView.text = result.gender
-        speciesTextView.text = result.species
-        statusTextView.text = result.status
-        typeTextView.text = result.type
-        createdTextView.text = DateTimeFormatUtils.format(result.created)
+        nameTextView.append(result.name)
+        genderTextView.append(result.gender)
+        speciesTextView.append(result.species)
+        statusTextView.append(result.status)
+        typeTextView.append(result.type)
+        createdTextView.append(DateTimeFormatUtils.format(result.created))
 
         episodesRecyclerAdapter = EpisodesRecyclerAdapter(ArrayList())
         episodesRecyclerView.layoutManager =
@@ -43,5 +45,13 @@ class CharacterDescriptionActivity : MvpAppCompatActivity(), CharacterDescriptio
 
     override fun setEpisodeRecyclerAdapter(episode: Episode) {
         episodesRecyclerAdapter.addEpisodeToList(episode)
+    }
+
+    override fun showErrorToast() {
+        Toast.makeText(
+            applicationContext,
+            getString(R.string.checkTheConnection),
+            Toast.LENGTH_SHORT
+        )
     }
 }

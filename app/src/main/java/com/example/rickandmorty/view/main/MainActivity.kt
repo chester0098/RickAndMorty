@@ -1,18 +1,15 @@
-package com.example.rickandmorty.view.description.main
+package com.example.rickandmorty.view.main
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.rickandmorty.R
 import com.example.rickandmorty.model.entities.characters.Result
 import com.example.rickandmorty.presenter.MainPresenter
 import com.example.rickandmorty.view.adapter.CharactersRecyclerViewAdapter
 import com.example.rickandmorty.view.description.CharacterDescriptionActivity
-import com.example.rickandmorty.view.main.LoadNewCharacters
-import com.example.rickandmorty.view.main.MainView
-import com.example.rickandmorty.view.main.StartCharacterDescriptionActivity
+import kotlinx.android.synthetic.main.activity_main.*
 import moxy.MvpAppCompatActivity
 import moxy.presenter.InjectPresenter
 
@@ -22,18 +19,13 @@ class MainActivity : MvpAppCompatActivity(), MainView, LoadNewCharacters,
     @InjectPresenter
     lateinit var mainPresenter: MainPresenter
 
-    lateinit var charactersRecyclerView: RecyclerView
-
     lateinit var recyclerAdapter: CharactersRecyclerViewAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
-        charactersRecyclerView = findViewById(R.id.charactersRecyclerView)
         charactersRecyclerView.layoutManager = LinearLayoutManager(this)
-
         recyclerAdapter = CharactersRecyclerViewAdapter(ArrayList(), this, this)
         charactersRecyclerView.adapter = recyclerAdapter
 
@@ -45,8 +37,12 @@ class MainActivity : MvpAppCompatActivity(), MainView, LoadNewCharacters,
         recyclerAdapter.addNewCharactersToList(list)
     }
 
-    override fun showToast() {
-        Toast.makeText(applicationContext, "Проверьте подключение к сети", Toast.LENGTH_SHORT)
+    override fun showErrorToast() {
+        Toast.makeText(
+            applicationContext,
+            getString(R.string.checkTheConnection),
+            Toast.LENGTH_SHORT
+        )
     }
 
     override fun downloadNextPage() {
@@ -55,9 +51,12 @@ class MainActivity : MvpAppCompatActivity(), MainView, LoadNewCharacters,
 
     override fun start(result: Result) {
         val intent = Intent(this, CharacterDescriptionActivity::class.java)
-        intent.putExtra("Character", result)
+        intent.putExtra(CHARACTER_TAG, result)
         startActivity(intent)
     }
 
+    companion object {
+        const val CHARACTER_TAG = "Character"
+    }
 
 }

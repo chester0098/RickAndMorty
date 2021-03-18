@@ -8,4 +8,5 @@ import moxy.viewstate.strategy.StateStrategyType
 @StateStrategyType(value = OneExecutionStateStrategy::class)
 interface CharacterDescriptionView : MvpView {
     fun setEpisodeRecyclerAdapter(episode: Episode)
+    fun showErrorToast()
 }

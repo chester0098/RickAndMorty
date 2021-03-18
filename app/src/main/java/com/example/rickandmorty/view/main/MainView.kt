@@ -8,5 +8,5 @@ import moxy.viewstate.strategy.StateStrategyType
 @StateStrategyType(value = AddToEndStrategy::class)
 interface MainView : MvpView {
     fun updateRecyclerAdapter(list: List<Result>)
-    fun showToast()
+    fun showErrorToast()
 }
