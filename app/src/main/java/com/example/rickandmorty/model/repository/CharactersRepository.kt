@@ -11,7 +11,12 @@ class CharactersRepository {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
-                { response -> characterResponse.addCharacterToRecycler(response.results) },
+                { response ->
+                    characterResponse.addCharacterToRecycler(
+                        response.results,
+                        response.info.pages
+                    )
+                },
                 { characterResponse.onError() })
     }
 }

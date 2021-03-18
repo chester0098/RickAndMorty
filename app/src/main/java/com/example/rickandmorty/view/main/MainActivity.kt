@@ -17,9 +17,9 @@ class MainActivity : MvpAppCompatActivity(), MainView, LoadNewCharacters,
     StartCharacterDescriptionActivity {
 
     @InjectPresenter
-    lateinit var mainPresenter: MainPresenter
+    private lateinit var mainPresenter: MainPresenter
 
-    lateinit var recyclerAdapter: CharactersRecyclerViewAdapter
+    private lateinit var recyclerAdapter: CharactersRecyclerViewAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

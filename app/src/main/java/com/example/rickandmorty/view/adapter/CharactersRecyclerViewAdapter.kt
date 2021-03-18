@@ -65,7 +65,6 @@ class CharactersRecyclerViewAdapter(
             cardView?.setOnClickListener { startCharacterDescriptionActivity.start(item) }
         }
 
-
         init {
             characterName = itemView.findViewById(R.id.episodeName)
             characterImage = itemView.findViewById(R.id.characterImage)

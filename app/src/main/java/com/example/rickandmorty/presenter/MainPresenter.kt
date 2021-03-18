@@ -9,12 +9,19 @@ import moxy.MvpPresenter
 @InjectViewState
 class MainPresenter : MvpPresenter<MainView>(), CharacterResponse {
     private var pageNum = 1;
+    private var maxPageNum = 1;
+    private var firstLoad = true
     private val characterRepository: CharactersRepository = CharactersRepository()
     fun downloadCharacters() {
-        characterRepository.getCharacters(pageNum, this)
+        if (pageNum <= maxPageNum)
+            characterRepository.getCharacters(pageNum, this)
     }
 
-    override fun addCharacterToRecycler(listCharacters: List<Result>) {
+    override fun addCharacterToRecycler(listCharacters: List<Result>, maxPageNum: Int) {
+        if (firstLoad) {
+            this.maxPageNum = maxPageNum
+            firstLoad = false
+        }
         viewState.updateRecyclerAdapter(listCharacters)
         pageNum++
     }
@@ -22,6 +29,4 @@ class MainPresenter : MvpPresenter<MainView>(), CharacterResponse {
     override fun onError() {
         viewState.showErrorToast()
     }
-
-
 }

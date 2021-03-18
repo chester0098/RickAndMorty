@@ -34,14 +34,12 @@ class EpisodesRecyclerAdapter(private var episodesList: ArrayList<Episode>) :
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var episodeNumber: TextView? = null
 
-
         fun bind(
             item: Episode,
             position: Int
         ) {
             episodeNumber?.text = item.episode
         }
-
 
         init {
             episodeNumber = itemView.findViewById(R.id.episodeNumber)
