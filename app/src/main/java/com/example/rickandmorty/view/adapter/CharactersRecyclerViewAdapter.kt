@@ -62,7 +62,7 @@ class CharactersRecyclerViewAdapter(
                 .load(item.image)
                 .into(characterImage!!)
 
-            cardView?.setOnClickListener { startCharacterDescriptionActivity.start(item) }
+            cardView?.setOnClickListener { startCharacterDescriptionActivity.start(item.id) }
         }
 
         init {

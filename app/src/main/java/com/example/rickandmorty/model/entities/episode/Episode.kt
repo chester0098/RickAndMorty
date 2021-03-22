@@ -1,10 +1,11 @@
 package com.example.rickandmorty.model.entities.episode
 
-data class Episode(
-    val air_date: String,
-    val created: String,
-    val episode: String,
-    val id: Int,
-    val name: String,
-    val url: String
-)
+import io.realm.RealmObject
+import io.realm.annotations.PrimaryKey
+
+open class Episode(
+    @PrimaryKey
+    var url: String? = null,
+    var episode: String? = null,
+    var name: String? = null
+) : RealmObject()

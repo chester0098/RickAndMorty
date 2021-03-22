@@ -49,14 +49,14 @@ class MainActivity : MvpAppCompatActivity(), MainView, LoadNewCharacters,
         mainPresenter.downloadCharacters()
     }
 
-    override fun start(result: Result) {
+    override fun start(id: Int) {
         val intent = Intent(this, CharacterDescriptionActivity::class.java)
-        intent.putExtra(CHARACTER_TAG, result)
+        intent.putExtra(ID_TAG, id)
         startActivity(intent)
     }
 
     companion object {
-        const val CHARACTER_TAG = "Character"
+        const val ID_TAG = "Id"
     }
 
 }

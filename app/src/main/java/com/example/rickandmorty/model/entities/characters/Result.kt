@@ -1,16 +1,20 @@
 package com.example.rickandmorty.model.entities.characters
 
+import io.realm.RealmList
+import io.realm.RealmObject
+import io.realm.annotations.PrimaryKey
+import kotlinx.android.parcel.RawValue
 import java.io.Serializable
 
-data class Result(
-    val created: String,
-    val episode: List<String>,
-    val gender: String,
-    val id: Int,
-    val image: String,
-    val name: String,
-    val species: String,
-    val status: String,
-    val type: String,
-    val url: String
-) : Serializable
+open class Result(
+    @PrimaryKey
+    var id: Int = 0,
+    var created: String? = null,
+    var episode: @RawValue RealmList<String>? = null,
+    var gender: String? = null,
+    var image: String? = null,
+    var name: String? = null,
+    var species: String? = null,
+    var status: String? = null,
+    var type: String? = null,
+) : Serializable, RealmObject()

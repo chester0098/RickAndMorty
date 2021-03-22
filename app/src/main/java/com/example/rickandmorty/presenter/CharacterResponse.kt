@@ -4,5 +4,5 @@ import com.example.rickandmorty.model.entities.characters.Result
 
 interface CharacterResponse {
     fun addCharacterToRecycler(listCharacters: List<Result>, maxPageNum: Int)
-    fun onError()
+    fun onError(listCharacters: List<Result>)
 }

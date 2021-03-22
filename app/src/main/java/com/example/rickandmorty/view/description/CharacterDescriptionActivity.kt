@@ -24,27 +24,28 @@ class CharacterDescriptionActivity : MvpAppCompatActivity(), CharacterDescriptio
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_character_description)
-        val result: Result = intent.getSerializableExtra(MainActivity.CHARACTER_TAG) as Result
+        val id: Int = intent.getIntExtra(MainActivity.ID_TAG, 0)
+        episodesRecyclerAdapter = EpisodesRecyclerAdapter(ArrayList())
+        episodesRecyclerView.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        episodesRecyclerView.adapter = episodesRecyclerAdapter
 
+        characterDescriptionPresenter.getCharacterAndEpisodes(id)
+
+    }
+
+    override fun setEpisodeRecyclerAdapter(episode: Episode) {
+        episodesRecyclerAdapter.addEpisodeToList(episode)
+    }
+
+    override fun setCharacterInfo(result: Result) {
         Glide.with(this).load(result.image).into(characterImageView)
         nameTextView.append(result.name)
         genderTextView.append(result.gender)
         speciesTextView.append(result.species)
         statusTextView.append(result.status)
         typeTextView.append(result.type)
-        createdTextView.append(DateTimeFormatUtils.format(result.created))
-
-        episodesRecyclerAdapter = EpisodesRecyclerAdapter(ArrayList())
-        episodesRecyclerView.layoutManager =
-            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        episodesRecyclerView.adapter = episodesRecyclerAdapter
-
-        characterDescriptionPresenter.getEpisodeList(result.episode)
-
-    }
-
-    override fun setEpisodeRecyclerAdapter(episode: Episode) {
-        episodesRecyclerAdapter.addEpisodeToList(episode)
+        createdTextView.append(DateTimeFormatUtils.format(result.created!!))
     }
 
     override fun showErrorToast() {
