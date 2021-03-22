@@ -4,7 +4,6 @@ import io.realm.RealmList
 import io.realm.RealmObject
 import io.realm.annotations.PrimaryKey
 import kotlinx.android.parcel.RawValue
-import java.io.Serializable
 
 open class Result(
     @PrimaryKey
@@ -17,4 +16,4 @@ open class Result(
     var species: String? = null,
     var status: String? = null,
     var type: String? = null,
-) : Serializable, RealmObject()
+) : RealmObject()

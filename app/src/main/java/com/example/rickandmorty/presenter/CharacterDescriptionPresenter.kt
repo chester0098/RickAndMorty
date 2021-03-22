@@ -2,6 +2,7 @@ package com.example.rickandmorty.presenter
 
 import com.example.rickandmorty.model.entities.characters.Result
 import com.example.rickandmorty.model.entities.episode.Episode
+import com.example.rickandmorty.model.repository.CharactersRepository
 import com.example.rickandmorty.model.repository.EpisodesRepository
 import com.example.rickandmorty.view.description.CharacterDescriptionView
 import moxy.InjectViewState
@@ -14,13 +15,16 @@ import org.koin.core.component.inject
 @KoinApiExtension
 @InjectViewState
 class CharacterDescriptionPresenter : MvpPresenter<CharacterDescriptionView>(),
-    EpisodesAndCharacterResponse,
+    EpisodesResponse,
     KoinComponent {
 
     private val episodesRepository: EpisodesRepository by inject()
+    private val characterRepository: CharactersRepository by inject()
 
     fun getCharacterAndEpisodes(id: Int) {
-        episodesRepository.getCharacterAndEpisode(id, this)
+        val result: Result = characterRepository.getCharacterFromDB(id)
+        addCharacterInfo(result)
+        episodesRepository.getCharacterAndEpisode(result.episode!!, this)
     }
 
     override fun addCharacterInfo(result: Result) {
